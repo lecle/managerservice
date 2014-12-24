@@ -1,0 +1,26 @@
+{
+    "name": "managerservice",
+    "version": "0.0.1",
+    "description": "microservice manager",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha --recursive"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lecle/managerservice.git"
+    },
+    "keywords": [
+        "microservice,manager"
+    ],
+    "author": "Daesun",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/lecle/managerservice/issues"
+    },
+    "homepage": "https://github.com/lecle/managerservice",
+    "dependencies": {
+        "mocha": "~2.0.1",
+        "assert": "~1.2.0"
+    }
+}
