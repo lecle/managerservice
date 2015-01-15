@@ -1,6 +1,7 @@
 Manager MicroService
 =====
 [![Build Status](https://travis-ci.org/lecle/managerservice.svg?branch=master)](https://travis-ci.org/lecle/managerservice)
+[![Coverage Status](https://coveralls.io/repos/lecle/managerservice/badge.svg?branch=master)](https://coveralls.io/r/lecle/managerservice?branch=master)
 
 MicroService의 생성, 확장, 축소, 재배치, 포트 부여, 모니터링 등의 관리를 담당한다.
 
