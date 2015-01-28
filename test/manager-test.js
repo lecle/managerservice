@@ -21,7 +21,8 @@ var dummyContainer = {
     getRouteTable : function() {
 
         return {
-            add : function() {}
+            add : function() {},
+            setStatus : function() {}
         }
     },
     getRouteTableJSON : function() {
