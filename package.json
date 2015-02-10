@@ -26,6 +26,8 @@
     "forever-monitor": "^1.5.2",
     "i": "^0.3.2",
     "istanbul": "^0.3.5",
-    "mocha": "~2.0.1"
+    "mkdirp": "^0.5.0",
+    "mocha": "~2.0.1",
+    "rimraf": "^2.2.8"
   }
 }
