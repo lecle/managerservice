@@ -27,6 +27,9 @@ var dummyContainer = {
     },
     getRouteTableJSON : function() {
         return routeTable;
+    },
+    createNewInstance : function() {
+        return {init : function(){}};
     }
 };
 
