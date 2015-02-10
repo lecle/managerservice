@@ -29,8 +29,9 @@ var dummyContainer = {
         return routeTable;
     },
     createNewInstance : function() {
-        return {init : function(){}};
-    }
+        return {init : function(){}, close : function() {}};
+    },
+    close : function(callback) {callback(null);}
 };
 
 describe('manager', function() {
