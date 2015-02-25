@@ -22,10 +22,14 @@ var dummyContainer = {
 
         return {
             add : function() {},
-            setStatus : function() {}
+            setStatus : function() {},
+            setRouteTable : function() {}
         }
     },
     getRouteTableJSON : function() {
+        return routeTable;
+    },
+    getConfig : function() {
         return routeTable;
     },
     createNewInstance : function() {
