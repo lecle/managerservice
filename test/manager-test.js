@@ -16,7 +16,7 @@ var routeTable = {
 var dummyContainer = {
     addListener : function(){},
     broadcast : function(command, req, callback){ callback(null, {data:[{data:'test'}]})},
-    log : function(log) { console.log(log)},
+    log : { info : function(log) { console.log(log)}, error : function(log) { console.log(log)}},
     saveRouteTable : function(){},
     getRouteTable : function() {
 
