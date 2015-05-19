@@ -3,63 +3,67 @@ Manager MicroService
 [![Build Status](https://travis-ci.org/lecle/managerservice.svg?branch=master)](https://travis-ci.org/lecle/managerservice)
 [![Coverage Status](https://coveralls.io/repos/lecle/managerservice/badge.svg?branch=master)](https://coveralls.io/r/lecle/managerservice?branch=master)
 
-MicroService의 생성, 확장, 축소, 재배치, 포트 부여, 모니터링 등의 관리를 담당한다.
+It deals with the management of creation, extension, reduction, rearrangement, port allocation, monitoring, etc for MicroService.
 
-Manager MicroService의 종류 
+
+Category of Manager MicroServices
 -----
 
-Manager MicroService(이하 Manager)는 실행 환경에 따라 종류가 다를 수 있다.
+Manager MicroService(Hereinafter “Manager”) operates differently depending on executing enviroment.
 
 * standalone
 * AWS EC2
 * MS Azure
-* Docker
-* 등등...
+* Docker, etc
 
-MicroService Container의 생성 
+Creating MicroService Container
 -----
 
-MicroService Container(이하 Container)를 생성한다.
+Manager creates MicroService Container(Hereinafter “Container”).
 
-* 필요한 경우 Manager의 종류에 맞게 Container process를 생성한다.
-* 전략에 따라 미리 여분의 Container process를 생성해 놓고 pool로 관리할 수도 있고, 필요할 때 그때그때 생성할 수도 있다.
-* 처음 Manager 생성시에는 필요한 만큼의 Container를 생성한다.
+* Container process is created according to the kind of the Manager, if required.
+* According to your strategy, the Manager creates Container processes in advance and manages them as well as the creation of  the Container can be done dynamically.
+* When the Manager is created for the first time, it creates containers as needed.
 
-MicroService의 생성
+Creating MicroService
 -----
 
-Container에게 역할을 할당한다
+It allocates a task to a container.
 
-* Manager는 생성시 전체 서비스에 필요한 MicroService 목록을 가지고 있다. (환경에 따라 DB일수도, 파일일수도 있다.)
-* Container 생성시 로드해야 할 MicroService를 알려준다.
-* 더이상 필요한 목록이 없을 경우 Container를 대기상태로 만든다.
+* The newly created manager has a list of the MicroService required for entire service. 
+( The list may be a file or stored at database depending on circumstances. )
+* The newly created container notifies which MicroServices to be loaded.
+* If the list is no longer needed, the manager makes the Container wait state.
 
-MicroService의 확장
+Expanding MicroService
 -----
 
-MicroService에 과부하가 걸릴 경우 Container가 Manager에게 확장을 요구한다. 이와 별계로 모니터링중 필요하다고 판단하거나 관리자의 요청에 의해서도 확장할 수 있다.
+When the MicroService is overloaded, the Container asks Manager for extension. Apart from this, the Container can be extended by the request of the administrator or if it is required during monitoring as well.
 
-* 대기상태의 Container가 있을 경우 우선 할당한다.
-* 리소스 목록을 통해 프로세스를 추가할 수 있는 서버가 있을 경우 Container 프로세스를 추가한다.
-* 새로운 서버가 필요할 경우 각 Manager의 종류에 따라 새로운 서버를 요청할 수 있다.
+* If there is a container on wait state, it is allocated primarily.
+* If there is a server which can add processes through its list, the Manager adds the Container processes to the Container.
+* When it comes to need a new server, the Manager is able to require new one according to the kind of the Manager.
 
-MicroService의 축소 
+Reducing MicroService
 -----
 
-* 확장된 MicroService는 모니터링을 통해 축소가 필요할 경우 Container에게 소멸을 명령한다.
-* 서버의 모든 Container가 소멸된 경우 Manager의 종류에 따라 서버를 삭제할 수 있다.
+* The extended MicroService instructs the Container demanding a shrink through monitoring to be destroyed, if necessary.
+* If every container in the server is destoryed,  according to the type of Manager, it can delete the server.
 
-MicroService의 재배치 
+Rearranging MicroService
 -----
 
-Manager의 종류에 따라 서버 자원을 반납해야 할 필요가 있을 경우 다른 서버에 MicroService를 확장한 뒤 잠시 후 기존 서비스를 소멸시키는 방식으로 재배치 할 수 있다.
+In accordance with the type of the Manger, if there is a situation that server resource has to be released, the Manager rearranges by destroying the existing service after extending the MicroService to other server.
 
-Container의 포트 부여 
+Allocating port number to the Container
 -----
 
-Container에 역할을 할당할 때 사용할 포트를 함께 전송하여 Container간의 포트 중복을 제거한다.
+When tasks are allocated to the Container, because the Manager sends an available port number, the port duplication between Containers will not happen.
 
-모니터링 
+Monitoring
 -----
 
-각 Container의 모니터링 기능을 이용해 실시간으로 사용 상태를 모니터링하여 확장/축소/재배치에 사용한다. 또한, 서버가 죽거나 통신불능 상태가 된 경우 복구를 담당한다. 복구는 확장 후 기존 서비스를 소멸시키는 방식으로 한다. 복구처리는 모니터링 외에도 Container에게 오류보고를 받는 방식으로도 처리한다.
+* Using the monitoring functionality on each container, the current status of the server usage is monitored. Accordingly, the Manager will decide extension, reduction or rearrangement on the MicroService.
+* In addition, the Manager takes charge of recovery when the server is down or there are network failures.
+* The way of the recovery is to extend the existing service and then destroy the service.
+* Recovery process besides monitoring is done when the Manger receives error reports from Containers.
